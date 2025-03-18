@@ -5,22 +5,22 @@ inventory_pouches.dye_color_pairs = {}
 
 if minetest.get_modpath("mcl_dyes") and minetest.get_modpath("mcl_colors") and minetest.get_modpath("mcl_signs") then
 inventory_pouches.dye_color_pairs = {
-{"mcl_dye:black",mcl_colors.BLACK},
-{"mcl_dye:blue",mcl_colors.BLUE},
-{"mcl_dye:brown","#57392b"},
-{"mcl_dye:cyan",mcl_dyes.colors["cyan"].rgb},
-{"mcl_dye:green",mcl_colors.GREEN},
-{"mcl_dye:dark_green",mcl_colors.DARK_GREEN},
-{"mcl_dye:grey",mcl_colors.GRAY},
-{"mcl_dye:dark_grey",mcl_colors.DARK_GRAY},
-{"mcl_dye:lightblue",mcl_dyes.colors["light_blue"].rgb},
-{"mcl_dye:magenta",mcl_colors.LIGHT_PURPLE},
-{"mcl_dye:orange",mcl_dyes.colors["orange"].rgb},
-{"mcl_dye:pink",mcl_dyes.colors["pink"].rgb},
-{"mcl_dye:red",mcl_dyes.colors["red"].rgb},
-{"mcl_dye:violet",mcl_colors.DARK_PURPLE},
-{"mcl_dye:white",mcl_colors.WHITE},
-{"mcl_dye:yellow",mcl_colors.YELLOW},
+{"mcl_dyes:black",mcl_colors.BLACK},
+{"mcl_dyes:blue",mcl_colors.BLUE},
+{"mcl_dyes:brown","#57392b"},
+{"mcl_dyes:cyan",mcl_dyes.colors["cyan"].rgb},
+{"mcl_dyes:green",mcl_colors.GREEN},
+{"mcl_dyes:dark_green",mcl_colors.DARK_GREEN},
+{"mcl_dyes:grey",mcl_colors.GRAY},
+{"mcl_dyes:dark_grey",mcl_colors.DARK_GRAY},
+{"mcl_dyes:lightblue",mcl_dyes.colors["light_blue"].rgb},
+{"mcl_dyes:magenta",mcl_colors.LIGHT_PURPLE},
+{"mcl_dyes:orange",mcl_dyes.colors["orange"].rgb},
+{"mcl_dyes:pink",mcl_dyes.colors["pink"].rgb},
+{"mcl_dyes:red",mcl_dyes.colors["red"].rgb},
+{"mcl_dyes:violet",mcl_colors.DARK_PURPLE},
+{"mcl_dyes:white",mcl_colors.WHITE},
+{"mcl_dyes:yellow",mcl_colors.YELLOW},
 }
 end
 
@@ -35,7 +35,7 @@ local function craft_colored_pouch(itemstack, player, old_craft_grid, craft_inv)
         if item:get_name() == "inventory_pouches:pouch" then
             minetest.log("action","Found inventory pouch")
             pouch = item
-        elseif string.find(item:get_name(), "^mcl_dye:") or string.find(item:get_name(), "^dye:") then
+        elseif string.find(item:get_name(), "^mcl_dyes:") or string.find(item:get_name(), "^dye:") then
             minetest.log("action", "Found Dye")
             dye = item
             dye_stack_index = i
@@ -61,7 +61,7 @@ local function craft_colored_pouch(itemstack, player, old_craft_grid, craft_inv)
             meta:set_int("palette_index", color_idx)
 
         -- Handle Minecraft-like dyes
-        elseif minetest.get_modpath("mcl_dye") then
+        elseif minetest.get_modpath("mcl_dyes") then
             for _, dye_entry in ipairs(inventory_pouches.dye_color_pairs) do
                 local entry_dye_name, color_string = unpack(dye_entry)
                 if dye_name_match == entry_dye_name:match(":(%w+)$") then
@@ -97,7 +97,7 @@ minetest.register_on_craft(craft_colored_pouch)
 
 
 -- Register crafting recipes for colored pouches
-if minetest.get_modpath("mcl_dye") then
+if minetest.get_modpath("mcl_dyes") then
     for _, entry in ipairs(inventory_pouches.dye_color_pairs) do
         local dye_name, _ = unpack(entry)
         craft_def = {
