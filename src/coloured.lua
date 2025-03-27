@@ -22,6 +22,25 @@ inventory_pouches.dye_color_pairs = {
 {"mcl_dyes:white",mcl_colors.WHITE},
 {"mcl_dyes:yellow",mcl_colors.YELLOW},
 }
+elseif minetest.get_modpath("dye") then
+    -- made with color_helper.py
+    inventory_pouches.dye_color_pairs = {
+        {"dye:dark_grey","#494949"},
+        {"dye:red","#c91818"},
+        {"dye:grey","#9c9c9c"},
+        {"dye:white","#eeeeee"},
+        {"dye:green","#67eb1c"},
+        {"dye:dark_green","#2b7b00"},
+        {"dye:brown","#6c3800"},
+        {"dye:pink","#ffa5a5"},
+        {"dye:black","#292929"},
+        {"dye:violet","#480680"},
+        {"dye:orange","#e0601a"},
+        {"dye:magenta","#d80481"},
+        {"dye:yellow","#fcf611"},
+        {"dye:cyan","#00959d"},
+        {"dye:blue","#00519d"},
+    }
 end
 
 
@@ -60,11 +79,11 @@ local function craft_colored_pouch(itemstack, player, old_craft_grid, craft_inv)
             local color_idx = unifieddyes.getpaletteidx("dye:" .. dye_name_match, "extended")
             meta:set_int("palette_index", color_idx)
 
-        -- Handle Minecraft-like dyes
-        elseif minetest.get_modpath("mcl_dyes") then
+        -- Handle Minecraft-like and minetest_game
+        elseif minetest.get_modpath("mcl_dyes") or minetest.get_modpath("dye") then
             for _, dye_entry in ipairs(inventory_pouches.dye_color_pairs) do
                 local entry_dye_name, color_string = unpack(dye_entry)
-                if dye_name_match == entry_dye_name:match(":(%w+)$") then
+                if dye_name_match == entry_dye_name:match(":([%w_]+)$") then
                     meta:set_string("color", color_string)
                     break
                 end
@@ -97,7 +116,8 @@ minetest.register_on_craft(craft_colored_pouch)
 
 
 -- Register crafting recipes for colored pouches
-if minetest.get_modpath("mcl_dyes") then
+-- Handle Minecraft-like and minetest_game
+if minetest.get_modpath("mcl_dyes") or minetest.get_modpath("dye") then
     for _, entry in ipairs(inventory_pouches.dye_color_pairs) do
         local dye_name, _ = unpack(entry)
         craft_def = {
