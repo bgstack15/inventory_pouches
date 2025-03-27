@@ -197,3 +197,18 @@ function inventory_pouches.restore_all_pouches()
         end
     end
 end
+
+function inventory_pouches.load_pouches_for_player(player)
+    local inv_list, itemstack, meta, id
+    inv_list = player:get_inventory():get_list("main")
+    for _, itemstack in ipairs(inv_list) do
+        if itemstack:get_name() == "inventory_pouches:pouch" then
+            meta = itemstack:get_meta()
+            id = meta:get_string("id")
+            if id ~= nil then
+                minetest.log("info","[inventory_pouches] Initializing for " .. player:get_player_name() .. " existing pouch id " .. id)
+                inventory_pouches.create_pouch_inventory(itemstack)
+            end
+        end
+    end
+end

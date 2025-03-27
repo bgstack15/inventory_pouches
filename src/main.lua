@@ -78,5 +78,8 @@ minetest.register_on_shutdown(function()
 end)
 
 minetest.register_on_mods_loaded(function()
-inventory_pouches.restore_all_pouches()
+   inventory_pouches.restore_all_pouches()
 end)
+
+-- initialize pouches for each player at login time so inventory_icon can display them immediately
+core.register_on_joinplayer(inventory_pouches.load_pouches_for_player)
