@@ -4,21 +4,28 @@
 inventory_pouches.dye_color_pairs = {}
 
 if minetest.get_modpath("mcl_dyes") and minetest.get_modpath("mcl_colors") and minetest.get_modpath("mcl_signs") then
+--[[
+-- This works just fine, but the colors are a little darker than desired.
+    inventory_pouches.dye_color_pairs = {}
+    for k,v in pairs(mcl_dyes.colors) do
+        table.insert(inventory_pouches.dye_color_pairs,{"mcl_dyes:" .. k, v.rgb})
+    end
+--]]
 inventory_pouches.dye_color_pairs = {
 {"mcl_dyes:black",mcl_colors.BLACK},
 {"mcl_dyes:blue",mcl_colors.BLUE},
 {"mcl_dyes:brown","#57392b"},
 {"mcl_dyes:cyan",mcl_dyes.colors["cyan"].rgb},
-{"mcl_dyes:green",mcl_colors.GREEN},
-{"mcl_dyes:dark_green",mcl_colors.DARK_GREEN},
-{"mcl_dyes:grey",mcl_colors.GRAY},
-{"mcl_dyes:dark_grey",mcl_colors.DARK_GRAY},
-{"mcl_dyes:lightblue",mcl_dyes.colors["light_blue"].rgb},
+{"mcl_dyes:lime",mcl_colors.GREEN},
+{"mcl_dyes:green",mcl_colors.DARK_GREEN},
+{"mcl_dyes:silver",mcl_colors.GRAY},
+{"mcl_dyes:grey",mcl_colors.DARK_GRAY},
+{"mcl_dyes:light_blue","#1b90d3"},
 {"mcl_dyes:magenta",mcl_colors.LIGHT_PURPLE},
 {"mcl_dyes:orange",mcl_dyes.colors["orange"].rgb},
 {"mcl_dyes:pink",mcl_dyes.colors["pink"].rgb},
 {"mcl_dyes:red",mcl_dyes.colors["red"].rgb},
-{"mcl_dyes:violet",mcl_colors.DARK_PURPLE},
+{"mcl_dyes:purple",mcl_colors.DARK_PURPLE},
 {"mcl_dyes:white",mcl_colors.WHITE},
 {"mcl_dyes:yellow",mcl_colors.YELLOW},
 }
